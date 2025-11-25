@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2355e5a93d0b95b47b7791d7da6e7243
+guid: 93bd2159669e54842b1119481b748210
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4152243708130672734
-    second: Paragraf metniniz-Photoroom_0
+      213: -4754181626570608915
+    second: "Ads\u0131z_tasar\u0131m__4_-removebg-preview_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Paragraf metniniz-Photoroom_0
+      name: "Ads\u0131z_tasar\u0131m__4_-removebg-preview_0"
       rect:
         serializedVersion: 2
-        x: 82
-        y: 143
-        width: 336
-        height: 278
+        x: 51
+        y: 50
+        width: 412
+        height: 394
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2af3504d8544066c0800000000000000
-      internalID: -4152243708130672734
+      spriteID: deee196dff0c50eb0800000000000000
+      internalID: -4754181626570608915
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Paragraf metniniz-Photoroom_0: -4152243708130672734
+      "Ads\u0131z_tasar\u0131m__4_-removebg-preview_0": -4754181626570608915
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

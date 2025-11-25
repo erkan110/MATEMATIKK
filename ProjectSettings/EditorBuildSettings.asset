@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: "Assets/Scenes/ANA__MEN\xDC.unity"
+    guid: a363c3aba80099941a2a132007dc010d
+  - enabled: 1
+    path: Assets/Scenes/OYUN_ALAN.unity
+    guid: f1684baa1b021b44a80ae3cfc2cae31a
+  - enabled: 1
+    path: Assets/Scenes/TOPLAMA OYUNU.unity
+    guid: 3d78dfa43b0974b4ea6c2198ccfae032
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

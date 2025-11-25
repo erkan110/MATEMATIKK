@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9ba6dda36ce50d34ab28ec776ceb3779
+guid: a40903da0bb2eee4085bc35ab39c9d7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4758487110657072992
-    second: "Ads\u0131z_tasar\u0131m-removebg-preview_0"
+      213: 1332050802556576317
+    second: "Ads\u0131z_tasar\u0131m__3_-removebg-preview_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Ads\u0131z_tasar\u0131m-removebg-preview_0"
+      name: "Ads\u0131z_tasar\u0131m__3_-removebg-preview_0"
       rect:
         serializedVersion: 2
-        x: 84
-        y: 238
-        width: 332
-        height: 126
+        x: 47
+        y: 174
+        width: 412
+        height: 146
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 06f5dfac0da890240800000000000000
-      internalID: 4758487110657072992
+      spriteID: d32a82db5256c7210800000000000000
+      internalID: 1332050802556576317
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Ads\u0131z_tasar\u0131m-removebg-preview_0": 4758487110657072992
+      "Ads\u0131z_tasar\u0131m__3_-removebg-preview_0": 1332050802556576317
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
