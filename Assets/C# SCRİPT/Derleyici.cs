@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Derleyici : MonoBehaviour
 {
@@ -12,11 +13,15 @@ public class Derleyici : MonoBehaviour
     public TextMeshProUGUI Button3Text;
     public TextMeshProUGUI TebriklerText;
     public TextMeshProUGUI SayacText;
+    public TextMeshProUGUI KomboText;
+    public TextMeshProUGUI CanText;
 
     public GameObject Toplama;
+    public GameObject Sayac;
     public GameObject Button1;
     public GameObject Button2;
     public GameObject Button3;
+    public GameObject Panel;
 
     public bool soruYoksa;
 
@@ -33,22 +38,50 @@ public class Derleyici : MonoBehaviour
     public int HangiSikDogru;
 
     public int dogruCevapSayacý = 0;
+    public int yanlýsCevap = 0;
+    public int can = 3;
+
+    public int komboStreak;
 
     void Start()
     {
         StartCoroutine(GeriSayma());
 
+        int can = 3;
+
         Toplama.SetActive(false);
         Sik1Text.enabled = false;
         Sik2Text.enabled = false;
+        SayacText.enabled = false;
+        CanText.enabled = false;
         Button1.SetActive(false);
         Button2.SetActive(false);
         Button3.SetActive(false);
+        Panel.SetActive(false);
     }
 
     void Update()
     {
         SayacText.text = "Doðru Cevap : " + dogruCevapSayacý.ToString();
+
+        CanText.text = "Can : " + can.ToString();
+
+        if (yanlýsCevap == 3)
+        {
+            Toplama.SetActive(false);
+            Sik1Text.enabled = false;
+            Sik2Text.enabled = false;
+            SayacText.enabled = false;
+            Button1.SetActive(false);
+            Button2.SetActive(false);
+            Button3.SetActive(false);
+
+            TebriklerText.text = "KAYBETTÝNÝZ";
+
+            Time.timeScale = 0f;
+
+            Panel.SetActive(true);
+        }
     }
 
     public void SoruÜret()
@@ -145,6 +178,9 @@ public class Derleyici : MonoBehaviour
             TebriklerText.text = "TEBRÝKLER!";
 
             dogruCevapSayacý += 1;
+            komboStreak += 1;
+
+            KomboText.text = "x" + komboStreak.ToString();
 
             StartCoroutine(TextiSilme());
 
@@ -154,8 +190,13 @@ public class Derleyici : MonoBehaviour
         else
         {
             TebriklerText.text = "YANLIÞ!";
+            KomboText.text = "";
 
             StartCoroutine(TextiSilme());
+
+            yanlýsCevap += 1;
+            komboStreak = 0;
+            can--;
 
             SoruÜret();
         }
@@ -168,6 +209,9 @@ public class Derleyici : MonoBehaviour
             TebriklerText.text = "TEBRÝKLER!";
 
             dogruCevapSayacý += 1;
+            komboStreak += 1;
+
+            KomboText.text = "x" + komboStreak.ToString();
 
             StartCoroutine(TextiSilme());
 
@@ -177,8 +221,13 @@ public class Derleyici : MonoBehaviour
         else
         {
             TebriklerText.text = "YANLIÞ!";
+            KomboText.text = "";
 
             StartCoroutine(TextiSilme());
+
+            yanlýsCevap += 1;
+            komboStreak = 0;
+            can--;
 
             SoruÜret();
         }
@@ -191,6 +240,9 @@ public class Derleyici : MonoBehaviour
             TebriklerText.text = "TEBRÝKLER!";
 
             dogruCevapSayacý += 1;
+            komboStreak += 1;
+
+            KomboText.text = "x" + komboStreak.ToString();
 
             StartCoroutine(TextiSilme());
 
@@ -200,11 +252,26 @@ public class Derleyici : MonoBehaviour
         else
         {
             TebriklerText.text = "YANLIÞ!";
+            KomboText.text = "";
 
             StartCoroutine(TextiSilme());
 
+            yanlýsCevap += 1;
+            komboStreak = 0;
+            can--;
+
             SoruÜret();
         }
+    }
+
+    public void YenidenOynama()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void ÇýkýþYapma()
+    {
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator GeriSayma()
@@ -222,6 +289,8 @@ public class Derleyici : MonoBehaviour
         Toplama.SetActive(true);
         Sik1Text.enabled = true;
         Sik2Text.enabled = true;
+        SayacText.enabled = true;
+        CanText.enabled = true;
         Button1.SetActive(true);
         Button2.SetActive(true);
         Button3.SetActive(true);
