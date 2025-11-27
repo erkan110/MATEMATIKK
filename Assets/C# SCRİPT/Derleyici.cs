@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Derleyici : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Derleyici : MonoBehaviour
     public TextMeshProUGUI SayacText;
     public TextMeshProUGUI KomboText;
     public TextMeshProUGUI CanText;
+    public TextMeshProUGUI ScoreText;
 
     public GameObject Toplama;
     public GameObject Sayac;
@@ -22,6 +24,9 @@ public class Derleyici : MonoBehaviour
     public GameObject Button2;
     public GameObject Button3;
     public GameObject Panel;
+    public GameObject Kalp1;
+    public GameObject Kalp2;
+    public GameObject Kalp3;
 
     public bool soruYoksa;
 
@@ -47,7 +52,8 @@ public class Derleyici : MonoBehaviour
     {
         StartCoroutine(GeriSayma());
 
-        int can = 3;
+        can = 3;
+        Time.timeScale = 1f;
 
         Toplama.SetActive(false);
         Sik1Text.enabled = false;
@@ -58,11 +64,15 @@ public class Derleyici : MonoBehaviour
         Button2.SetActive(false);
         Button3.SetActive(false);
         Panel.SetActive(false);
+        Kalp1.gameObject.SetActive(true);
+        Kalp2.gameObject.SetActive(true);
+        Kalp3.gameObject.SetActive(true);
+
     }
 
     void Update()
     {
-        SayacText.text = "Doðru Cevap : " + dogruCevapSayacý.ToString();
+        SayacText.text = "CORRECT ANSWER: " + dogruCevapSayacý.ToString();
 
         CanText.text = "Can : " + can.ToString();
 
@@ -76,13 +86,14 @@ public class Derleyici : MonoBehaviour
             Button2.SetActive(false);
             Button3.SetActive(false);
 
-            TebriklerText.text = "KAYBETTÝNÝZ";
+            TebriklerText.text = "WRONG";
 
             Time.timeScale = 0f;
 
             Panel.SetActive(true);
+            ScoreText.text = "SCORE: " + dogruCevapSayacý.ToString();
         }
-    }
+    } 
 
     public void SoruÜret()
     {
@@ -175,7 +186,7 @@ public class Derleyici : MonoBehaviour
     {
         if (Sýk1Dogru == true)
         {
-            TebriklerText.text = "TEBRÝKLER!";
+            TebriklerText.text = "CONGRATULATIONS!";
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
@@ -189,7 +200,7 @@ public class Derleyici : MonoBehaviour
 
         else
         {
-            TebriklerText.text = "YANLIÞ!";
+            TebriklerText.text = "WRONG!";
             KomboText.text = "";
 
             StartCoroutine(TextiSilme());
@@ -197,7 +208,7 @@ public class Derleyici : MonoBehaviour
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
-
+            kalpler();
             SoruÜret();
         }
     }
@@ -206,7 +217,7 @@ public class Derleyici : MonoBehaviour
     {
         if (Sýk2Dogru == true)
         {
-            TebriklerText.text = "TEBRÝKLER!";
+            TebriklerText.text = "CONGRATULATIONS!";
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
@@ -220,7 +231,7 @@ public class Derleyici : MonoBehaviour
 
         else
         {
-            TebriklerText.text = "YANLIÞ!";
+            TebriklerText.text = "WRONG!";
             KomboText.text = "";
 
             StartCoroutine(TextiSilme());
@@ -228,7 +239,7 @@ public class Derleyici : MonoBehaviour
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
-
+            kalpler();
             SoruÜret();
         }
     }
@@ -237,7 +248,7 @@ public class Derleyici : MonoBehaviour
     {
         if (Sýk3Dogru == true)
         {
-            TebriklerText.text = "TEBRÝKLER!";
+            TebriklerText.text = "CONGRATULATIONS!";
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
@@ -259,13 +270,14 @@ public class Derleyici : MonoBehaviour
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
-
+            kalpler();
             SoruÜret();
         }
     }
 
     public void YenidenOynama()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(2);
     }
 
@@ -273,7 +285,33 @@ public class Derleyici : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
+    public void kalpler()
+    {
+        if (can == 3)
+        {
+            Kalp1.gameObject.SetActive(true);
+            Kalp2.gameObject.SetActive(true);
+            Kalp3.gameObject.SetActive(true);
+        }
+        if (can == 2)
+        {
+            Kalp1.gameObject.SetActive(true);
+            Kalp2.gameObject.SetActive(true);
+            Kalp3.gameObject.SetActive(false);
+        }
+        if (can == 1)
+        {
+            Kalp1.gameObject.SetActive(true);
+            Kalp2.gameObject.SetActive(false);
+            Kalp3.gameObject.SetActive(false);
+        }
+        if (can == 0)
+        {
+            Kalp1.gameObject.SetActive(false);
+            Kalp2.gameObject.SetActive(false);
+            Kalp3.gameObject.SetActive(false);
+        }
+    }
     IEnumerator GeriSayma()
     {
         geriyeSaymaText.text = "3";
@@ -282,7 +320,7 @@ public class Derleyici : MonoBehaviour
         yield return new WaitForSeconds(1f);
         geriyeSaymaText.text = "1";
         yield return new WaitForSeconds(1f);
-        geriyeSaymaText.text = "BAÞLA";
+        geriyeSaymaText.text = "START";
         yield return new WaitForSeconds(0.5f);
         geriyeSaymaText.text = "";
 
