@@ -17,6 +17,7 @@ public class Derleyici : MonoBehaviour
     public TextMeshProUGUI KomboText;
     public TextMeshProUGUI CanText;
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI SureYazýsý;
 
     public GameObject Toplama;
     public GameObject Sayac;
@@ -27,6 +28,8 @@ public class Derleyici : MonoBehaviour
     public GameObject Kalp1;
     public GameObject Kalp2;
     public GameObject Kalp3;
+    public GameObject SoruPaneli;
+    public GameObject SureText;
 
     public bool soruYoksa;
 
@@ -42,6 +45,8 @@ public class Derleyici : MonoBehaviour
 
     public int HangiSikDogru;
 
+    public int sure;
+
     public int dogruCevapSayacý = 0;
     public int yanlýsCevap = 0;
     public int can = 3;
@@ -53,6 +58,7 @@ public class Derleyici : MonoBehaviour
         StartCoroutine(GeriSayma());
 
         can = 3;
+        sure = 30;
         Time.timeScale = 1f;
 
         Toplama.SetActive(false);
@@ -64,6 +70,8 @@ public class Derleyici : MonoBehaviour
         Button2.SetActive(false);
         Button3.SetActive(false);
         Panel.SetActive(false);
+        SureText.SetActive(false);
+        SoruPaneli.SetActive(false);
         Kalp1.gameObject.SetActive(true);
         Kalp2.gameObject.SetActive(true);
         Kalp3.gameObject.SetActive(true);
@@ -73,6 +81,8 @@ public class Derleyici : MonoBehaviour
     void Update()
     {
         SayacText.text = "CORRECT ANSWER: " + dogruCevapSayacý.ToString();
+
+        SureYazýsý.text = "Time : " + sure.ToString();
 
         CanText.text = "Can : " + can.ToString();
 
@@ -93,6 +103,24 @@ public class Derleyici : MonoBehaviour
             Panel.SetActive(true);
             ScoreText.text = "SCORE: " + dogruCevapSayacý.ToString();
         }
+
+        if (sure == 0)
+        {
+            Toplama.SetActive(false);
+            Sik1Text.enabled = false;
+            Sik2Text.enabled = false;
+            SayacText.enabled = false;
+            Button1.SetActive(false);
+            Button2.SetActive(false);
+            Button3.SetActive(false);
+
+            TebriklerText.text = "TIMES UP!";
+
+            Time.timeScale = 0f;
+
+            Panel.SetActive(true);
+            ScoreText.text = "SCORE: " + dogruCevapSayacý.ToString();
+        }
     } 
 
     public void SoruÜret()
@@ -104,6 +132,8 @@ public class Derleyici : MonoBehaviour
 
         Sik1Text.text = sik1Sayi.ToString();
         Sik2Text.text = sik2Sayi.ToString();
+
+        StartCoroutine(SoruBasýnaSure());
 
         ButonaAta();
     }
@@ -190,10 +220,12 @@ public class Derleyici : MonoBehaviour
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
+            sure = 30;
 
             KomboText.text = "x" + komboStreak.ToString();
 
             StartCoroutine(TextiSilme());
+            StopCoroutine(SoruBasýnaSure());
 
             SoruÜret();
         }
@@ -204,10 +236,13 @@ public class Derleyici : MonoBehaviour
             KomboText.text = "";
 
             StartCoroutine(TextiSilme());
+            StopCoroutine(SoruBasýnaSure());
 
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
+            sure -= 5;
+
             kalpler();
             SoruÜret();
         }
@@ -221,10 +256,12 @@ public class Derleyici : MonoBehaviour
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
+            sure = 30;
 
             KomboText.text = "x" + komboStreak.ToString();
 
             StartCoroutine(TextiSilme());
+            StopCoroutine(SoruBasýnaSure());
 
             SoruÜret();
         }
@@ -235,10 +272,13 @@ public class Derleyici : MonoBehaviour
             KomboText.text = "";
 
             StartCoroutine(TextiSilme());
+            StopCoroutine(SoruBasýnaSure());
 
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
+            sure -= 5;
+
             kalpler();
             SoruÜret();
         }
@@ -252,8 +292,10 @@ public class Derleyici : MonoBehaviour
 
             dogruCevapSayacý += 1;
             komboStreak += 1;
+            sure = 30;
 
             KomboText.text = "x" + komboStreak.ToString();
+            StopCoroutine(SoruBasýnaSure());
 
             StartCoroutine(TextiSilme());
 
@@ -266,10 +308,13 @@ public class Derleyici : MonoBehaviour
             KomboText.text = "";
 
             StartCoroutine(TextiSilme());
+            StopCoroutine(SoruBasýnaSure());
 
             yanlýsCevap += 1;
             komboStreak = 0;
             can--;
+            sure -= 5;
+
             kalpler();
             SoruÜret();
         }
@@ -287,31 +332,46 @@ public class Derleyici : MonoBehaviour
     }
     public void kalpler()
     {
+
         if (can == 3)
         {
             Kalp1.gameObject.SetActive(true);
             Kalp2.gameObject.SetActive(true);
             Kalp3.gameObject.SetActive(true);
         }
+
         if (can == 2)
         {
             Kalp1.gameObject.SetActive(true);
             Kalp2.gameObject.SetActive(true);
             Kalp3.gameObject.SetActive(false);
         }
+
         if (can == 1)
         {
             Kalp1.gameObject.SetActive(true);
             Kalp2.gameObject.SetActive(false);
             Kalp3.gameObject.SetActive(false);
         }
+
         if (can == 0)
         {
             Kalp1.gameObject.SetActive(false);
             Kalp2.gameObject.SetActive(false);
             Kalp3.gameObject.SetActive(false);
         }
+
     }
+
+    IEnumerator SoruBasýnaSure()
+    {
+        while (sure != 0)
+        {
+            sure--;
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     IEnumerator GeriSayma()
     {
         geriyeSaymaText.text = "3";
@@ -329,9 +389,11 @@ public class Derleyici : MonoBehaviour
         Sik2Text.enabled = true;
         SayacText.enabled = true;
         CanText.enabled = true;
+        SureText.SetActive(true);
         Button1.SetActive(true);
         Button2.SetActive(true);
         Button3.SetActive(true);
+        SoruPaneli.SetActive(true);
         SoruÜret();
     }
 
